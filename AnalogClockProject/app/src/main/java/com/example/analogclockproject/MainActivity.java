@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     int Minute = 0;
     int Hour = 0;
 
+    // Runs the clock
     Thread ClockTimer = new Thread(){
         @Override
         public void run() {
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                 while (true){
                     // Update the time
                     Time++;
-                    rotate(Time*5, R.id.SecondHand);
+                    rotate(Time*6, R.id.SecondHand);
                     // Check if another hand needs to tick
                     while ( Time > 60){
                         Minute += Math.floor(Time / 60);
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                         rotate( Hour*30, R.id.HourHand);
                         Minute = Minute % 60;
                     }
-                    sleep(100);
+                    sleep(1000);
                 }
             } catch (Exception e){
                 e.printStackTrace();
