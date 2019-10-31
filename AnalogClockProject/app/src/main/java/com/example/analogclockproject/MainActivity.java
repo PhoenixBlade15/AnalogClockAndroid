@@ -8,13 +8,14 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
-
-    // Create time starting clock at midnight
-    int Time = 0;
-    int Minute = 0;
-    int Hour = 0;
+    // Create Clock Time Variables
+    public int Time = 0;
+    public int Minute = 0;
+    public int Hour = 0;
 
     // Runs the clock
     Thread ClockTimer = new Thread(){
@@ -66,6 +67,32 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+
+                // Try to set hour hand
+                try{
+                    Hour = calendar.get(calendar.HOUR);
+                    rotate( Hour*30, R.id.HourHand);
+                } catch(Exception e) {
+                    Hour = 0;
+                }
+
+                // Try to set minute hand
+                try{
+                    Minute = calendar.get(calendar.MINUTE);
+                    rotate( Minute*6, R.id.MinuteHand);
+                } catch(Exception e) {
+                    Minute = 0;
+                }
+
+                // Try to set second hand
+                try{
+                    Time = calendar.get(calendar.SECOND);
+                    rotate(Time*6, R.id.SecondHand);
+                } catch(Exception e) {
+                    Time = 0;
+                }
+
                 ClockTimer.start();
             }
         });
